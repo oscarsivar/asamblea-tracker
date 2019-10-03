@@ -1,0 +1,16 @@
+{
+  "name": "asamblea-audit",
+  "version": "1.0.0",
+  "description": "¡Vamos a ver qué hacen nuestros diputados a diario!",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "asamblea",
+    "sv",
+    "elsalvador"
+  ],
+  "author": "@mariomenjr",
+  "license": "MIT"
+}
