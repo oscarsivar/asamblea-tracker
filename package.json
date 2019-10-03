@@ -1,23 +1,23 @@
 {
-  "name": "asamblea-audit",
-  "version": "1.0.0",
-  "description": "¡Vamos a ver qué hacen nuestros diputados a diario!",
-  "main": "app.js",
-  "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start"
-  },
-  "keywords": [
-    "asamblea",
-    "sv",
-    "elsalvador"
-  ],
-  "author": "@mariomenjr",
-  "license": "MIT",
-  "dependencies": {
-    "next": "^9.0.7",
-    "react": "^16.10.1",
-    "react-dom": "^16.10.1"
-  }
+    "name": "asamblea-audit",
+    "version": "1.0.0",
+    "description": "¡Vamos a ver qué hacen nuestros diputados a diario!",
+    "main": "app.js",
+    "scripts": {
+        "dev": "next",
+        "build": "next build",
+        "start": "next start"
+    },
+    "keywords": [
+        "asamblea",
+        "sv",
+        "elsalvador"
+    ],
+    "author": "@mariomenjr",
+    "license": "MIT",
+    "dependencies": {
+        "next": "^9.0.7",
+        "react": "^16.10.1",
+        "react-dom": "^16.10.1"
+    }
 }
