@@ -16,9 +16,14 @@
     "author": "@mariomenjr",
     "license": "MIT",
     "dependencies": {
+        "@zeit/next-css": "^1.0.1",
         "next": "^9.0.7",
         "react": "^16.10.1",
         "react-dom": "^16.10.1",
         "scrappity": "^1.0.1"
+    },
+    "devDependencies": {
+        "autoprefixer": "^9.6.1",
+        "tailwindcss": "^1.1.2"
     }
 }

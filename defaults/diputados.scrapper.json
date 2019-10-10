@@ -8,7 +8,6 @@
                 {
                     "name": "congressMember",
                     "query": ".diputadoDetalles > .diputados-foto-detalles",
-                    "attrs": ["src", "alt"],
                     "props": [
                         {
                             "name": "memberImage",
@@ -16,8 +15,9 @@
                             "attrs": ["src", "alt"]
                         },
                         {
-                            "name": "memberName",
-                            "query": ".caption-detalle-horizontal-diputados > a"
+                            "name": "memberProfile",
+                            "query": ".caption-detalle-horizontal-diputados > a",
+                            "attrs": ["href"]
                         },
                         {
                             "name": "memberParty",
