@@ -1,5 +1,5 @@
 // Use Redux
-import congressScrapper from "../../defaults/congress.scrapper.json";
+import congressScrapper from "../../scrappers/congress.scrapper.json";
 
 export default ({ member, profile, index }) => (
     <div className="sm:h-48 h-56 xl:w-1/4 lg:w-1/3 md:w-1/2 sm:w-full max-w-full w-full flex p-2">

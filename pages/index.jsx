@@ -3,8 +3,8 @@ import scrappity from "scrappity";
 import Layout from "../components/Layout/Layout";
 import CongressGrid from "../components/Congress/CongressGrid";
 
-import congressScrapper from "../defaults/congress.scrapper.json";
-import profileScrapper from "../defaults/profile.scrapper.json";
+import congressScrapper from "../scrappers/congress.scrapper.json";
+import profileScrapper from "../scrappers/profile.scrapper.json";
 
 export default class Index extends React.Component {
     static async getInitialProps() {
