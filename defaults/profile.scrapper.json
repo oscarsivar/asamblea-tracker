@@ -1,0 +1,22 @@
+{
+    "url": "https://www.asamblea.gob.sv",
+    "queryObjects": [
+        {
+            "name": "memberInformation",
+            "endpoint": "",
+            "collections": [
+                {
+                    "name": "historyDetails",
+                    "query": "div.list-group.list-unstyled > ul.list-group",
+                    "props": [
+                        {
+                            "name": "historyItem",
+                            "query": "li",
+                            "attrs": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
