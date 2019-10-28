@@ -5,7 +5,7 @@
             "type": "node",
             "request": "launch",
             "name": "Node: Scrapper",
-            "program": "${workspaceFolder}/utils/scrapper.js"
+            "program": "${workspaceFolder}/cli/scrapper/index.js"
         },
         {
             "type": "chrome",
@@ -18,7 +18,7 @@
             "type": "node",
             "request": "launch",
             "name": "Next: Node",
-            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/next",
+            "program": "${workspaceFolder}/app.js",
             "port": 9229,
             "env": {
                 "NODE_OPTIONS": "--inspect"

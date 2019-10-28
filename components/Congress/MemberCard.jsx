@@ -1,5 +1,5 @@
 // Use Redux
-import congressScrapper from "../../scrappers/congress.scrapper.json";
+import congressScrapper from "../../cli/scrapper/models/congress.scrapper.json";
 
 export default ({ member, profile, index }) => (
     <div className="sm:h-48 h-56 xl:w-1/4 lg:w-1/3 md:w-1/2 sm:w-full max-w-full w-full flex p-2">
@@ -13,7 +13,7 @@ export default ({ member, profile, index }) => (
         <div className="h-1/2 w-2/3 border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
             <div className="mb-0">
                 <p className="text-xs text-gray-600 flex items-center">
-                    Department
+                    Department!!
                 </p>
                 <div className="text-gray-900 font-bold text-lg mb-0 ">
                     {member.props.memberProfile.value}

@@ -4,9 +4,9 @@
     "description": "¡Vamos a ver qué hacen nuestros diputados a diario!",
     "main": "app.js",
     "scripts": {
-        "dev": "next",
+        "dev": "node app.js",
         "build": "next build",
-        "start": "next start"
+        "start": "NODE_ENV=production node app.js"
     },
     "keywords": [
         "asamblea",
@@ -17,10 +17,13 @@
     "license": "MIT",
     "dependencies": {
         "@zeit/next-css": "^1.0.1",
+        "dotenv": "^8.2.0",
+        "mongoose": "^5.7.7",
         "next": "^9.1.1",
         "react": "^16.11.0",
         "react-dom": "^16.11.0",
-        "scrappity": "^1.0.3"
+        "scrappity": "^1.0.3",
+        "trae": "^1.4.2"
     },
     "devDependencies": {
         "autoprefixer": "^9.7.0",
