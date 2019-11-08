@@ -29,7 +29,7 @@
     ],
     "compounds": [
         {
-            "name": "Next: Full",
+            "name": "Next: Stack",
             "configurations": ["Next: Node", "Next: Chrome"]
         }
     ]

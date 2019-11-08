@@ -1,23 +1,36 @@
-const scrappity = require("scrappity");
-const congressScrapper = require("../defaults/congress.scrapper.json");
-const profileScrapper = require("../defaults/profile.scrapper.json");
+require("dotenv").config();
 
-scrappity(congressScrapper)
-    .then(scrappedCongress => {
-        console.log({ scrappedCongress });
-        scrappedCongress[0][0].map(member => {
-            profileScrapper.queryObjects[0].endpoint = member.props.memberProfile.attrs.href.substring(
-                1
-            );
-            scrappity(profileScrapper)
-                .then(scrappedProfile => {
-                    console.log({ scrappedProfile });
-                })
-                .catch(error => {
-                    throw error;
-                });
-        });
+const { connectDatabase, models } = require("../../models");
+const scrappity = require("scrappity");
+
+connectDatabase()
+    .then(async conn => {
+        const { Congress } = models;
+
+        const currentCongress = await Congress.findOne().sort();
+        console.log(currentCongress);
     })
-    .catch(error => {
-        throw error;
+    .catch(err => {
+        console.error("Not connected");
     });
+// const congressScrapper = require("./models/congress.scrapper.json");
+// const profileScrapper = require("./models/profile.scrapper.json");
+
+// scrappity(congressScrapper)
+//     .then(scrappedCongress => {
+//         const congressMembers = scrappedCongress[0][0];
+//         congressMembers.map(member => {
+//             const endpoint = member.props.memberProfile.attrs.href.substring(1);
+//             profileScrapper.queryObjects[0].endpoint = endpoint;
+//             scrappity(profileScrapper)
+//                 .then(scrappedProfile => {
+//                     console.log({ scrappedProfile });
+//                 })
+//                 .catch(error => {
+//                     throw error;
+//                 });
+//         });
+//     })
+//     .catch(error => {
+//         throw error;
+//     });

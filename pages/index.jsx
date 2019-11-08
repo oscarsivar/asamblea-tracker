@@ -36,7 +36,7 @@ Index.getInitialProps = async () => {
         })
     );
 
-    await trae.get("http://localhost:3000/api/sample");
+    // await trae.get("http://localhost:3000/api/sample");
 
     return { members, profiles: profiles.map(p => p[0][0][0]) };
 };
