@@ -1,36 +1,30 @@
 require("dotenv").config();
 
-const { connectDatabase, models } = require("../../models");
 const scrappity = require("scrappity");
+const congressScrapper = require("./models/congress.scrapper.json");
+const profileScrapper = require("./models/profile.scrapper.json");
+
+const { connectDatabase } = require("../../models");
+const { congressController } = require("./controllers");
 
 connectDatabase()
-    .then(async conn => {
-        const { Congress } = models;
+    .then(async function(conn) {
+        const scrappedCongress = (await scrappity(congressScrapper))[0][0];
+        const members = await congressController.makeSense(scrappedCongress);
 
-        const currentCongress = await Congress.findOne().sort();
-        console.log(currentCongress);
+        const scrappedProfiles = await Promise.all(
+            members.map(member => {
+                const _profileScrapper = { ...profileScrapper };
+                _profileScrapper.queryObjects[0].endpoint =
+                    member.profileEndpoint;
+
+                return scrappity(profileScrapper);
+            })
+        );
+        // const scrappedProfiles = (await scrappity(profileScrapper))[0][0];
+        console.log({ members, scrappedProfiles });
     })
-    .catch(err => {
-        console.error("Not connected");
+    .catch(function(err) {
+        console.error(err);
+        process.exit(1);
     });
-// const congressScrapper = require("./models/congress.scrapper.json");
-// const profileScrapper = require("./models/profile.scrapper.json");
-
-// scrappity(congressScrapper)
-//     .then(scrappedCongress => {
-//         const congressMembers = scrappedCongress[0][0];
-//         congressMembers.map(member => {
-//             const endpoint = member.props.memberProfile.attrs.href.substring(1);
-//             profileScrapper.queryObjects[0].endpoint = endpoint;
-//             scrappity(profileScrapper)
-//                 .then(scrappedProfile => {
-//                     console.log({ scrappedProfile });
-//                 })
-//                 .catch(error => {
-//                     throw error;
-//                 });
-//         });
-//     })
-//     .catch(error => {
-//         throw error;
-//     });

@@ -5,8 +5,10 @@ const deputySchema = new Schema(
     {
         name: String,
         department: String,
-        pictureUrl: String,
-        uniqueHash: String
+        pictureEndpoint: String,
+        profileEndpoint: String,
+        uniqueHash: String,
+        congressFk: Schema.Types.ObjectId
     },
     {
         timestamps: { createdAt: true, updatedAt: true }
