@@ -1,5 +1,3 @@
-const mongoose = require("mongoose");
-
 const { models } = require("../../../models");
 
 const RGX_OWNER_DEPUTY = {
@@ -45,8 +43,12 @@ function deputyController() {
     };
 }
 
-deputyController.prototype.makeSense = function(profileScrapper, member) {
-    const careerEntity = profileScrapper[0];
+deputyController.prototype.makeSense = function(
+    profileScrapper,
+    member,
+    parties
+) {
+    const careerEntity = profileScrapper[0][0];
     const historyItem = Array.isArray(careerEntity.props.historyItem)
         ? careerEntity.props.historyItem
         : [careerEntity.props.historyItem];

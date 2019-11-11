@@ -4,19 +4,33 @@ const mongoose = require("mongoose");
 const scrappity = require("scrappity");
 const congressScrapper = require("./models/congress.scrapper.json");
 const profileScrapper = require("./models/profile.scrapper.json");
+const partyScrapper = require("./models/parties.scrapper.json");
 
 const { connectDatabase } = require("../../models");
-const { congressController, deputyController } = require("./controllers");
+const {
+    congressController,
+    deputyController,
+    partyController
+} = require("./controllers");
 
 connectDatabase()
     .then(async function(conn) {
-        if (process.env.NODE_ENV !== "production") {
-            console.log({ conn });
+        if (process.env.NODE_ENV === "development") {
             try {
-                await Promise.all([
-                    await mongoose.connection.collection("congresses").drop(),
-                    await mongoose.connection.collection("deputies").drop()
-                ]);
+                const collections = await mongoose.connection.db
+                    .listCollections()
+                    .toArray();
+                await Promise.all(
+                    collections
+                        .filter(
+                            collection => !collection.name.startsWith("system.")
+                        )
+                        .map(collection =>
+                            mongoose.connection
+                                .collection(collection.name)
+                                .drop()
+                        )
+                );
             } catch (error) {
                 console.log(error);
             }
@@ -24,6 +38,9 @@ connectDatabase()
 
         const scrappedCongress = (await scrappity(congressScrapper))[0][0];
         const members = await congressController.makeSense(scrappedCongress);
+
+        const scrappedParties = (await scrappity(partyScrapper))[0][0];
+        const parties = await partyController.makeSense(scrappedParties);
 
         const scrappedProfiles = await Promise.all(
             members.map(member => {
@@ -39,8 +56,9 @@ connectDatabase()
             await Promise.all(
                 scrappedProfiles.map((scrappedProfile, index) =>
                     deputyController.makeSense(
-                        scrappedProfile[0][0],
-                        members[index]
+                        scrappedProfile[0],
+                        members[index],
+                        parties
                     )
                 )
             )

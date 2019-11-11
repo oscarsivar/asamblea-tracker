@@ -5,7 +5,10 @@
             "type": "node",
             "request": "launch",
             "name": "Node: Scrapper",
-            "program": "${workspaceFolder}/cli/scrapper/index.js"
+            "program": "${workspaceFolder}/cli/scrapper/index.js",
+            "env": {
+                "NODE_ENV": "development"
+            }
         },
         {
             "type": "chrome",

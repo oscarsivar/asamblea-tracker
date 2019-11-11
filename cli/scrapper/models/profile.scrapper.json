@@ -15,6 +15,17 @@
                             "attrs": []
                         }
                     ]
+                },
+                {
+                    "name": "deputyFlag",
+                    "query": "div.region.region-content",
+                    "props": [
+                        {
+                            "name": "flagImage",
+                            "query": "div.thumbnail > img.img-responsive",
+                            "attrs": ["src", "alt"]
+                        }
+                    ]
                 }
             ]
         }

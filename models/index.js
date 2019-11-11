@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Congress = require("./Congress.model");
 const Deputy = require("./Deputy.model");
 const Career = require("./Career.model");
+const Party = require("./Party.model");
 
 const connectDatabase = () => {
     const {
@@ -18,4 +19,7 @@ const connectDatabase = () => {
     );
 };
 
-module.exports = { connectDatabase, models: { Congress, Deputy, Career } };
+module.exports = {
+    connectDatabase,
+    models: { Congress, Deputy, Career, Party }
+};
