@@ -8,6 +8,14 @@ const deputySchema = new Schema(
         pictureEndpoint: String,
         profileEndpoint: String,
         uniqueHash: String,
+        numberPeriods: {
+            type: Number,
+            default: 1
+        },
+        firstPeriodOn: {
+            type: Date,
+            default: new Date()
+        },
         congressFk: Schema.Types.ObjectId
     },
     {
