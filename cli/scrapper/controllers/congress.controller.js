@@ -1,5 +1,3 @@
-const mongoose = require("mongoose");
-
 const { models } = require("../../../models");
 
 function congressController() {
@@ -21,14 +19,14 @@ congressController.prototype.makeSense = async function(scrappedCongress) {
                 scrapped =>
                     new models.Deputy({
                         name: scrapped.props.memberProfile.value[0],
-                        department: "Placeholder",
+                        department: ":department:",
                         pictureEndpoint: scrapped.props.memberImage.attrs.src,
                         profileEndpoint:
                             scrapped.props.memberProfile.attrs.href,
                         uniqueHash: scrapped.props.memberProfile.attrs.href
                             .split("/")
                             .pop(),
-                        congressFk: new mongoose.Types.ObjectId(congress.id)
+                        congress: congress.id
                     })
             )
         );

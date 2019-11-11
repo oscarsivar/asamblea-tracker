@@ -1,5 +1,3 @@
-const mongoose = require("mongoose");
-
 const { models } = require("../../../models");
 
 const RGX_OWNER_DEPUTY = {
@@ -49,10 +47,7 @@ function deputyController() {
             .filter(party => party.flagEndpoint === flagImage.attrs.src)
             .pop();
 
-        return models.Deputy.updateOne(
-            { _id: member.id },
-            { partyFk: new mongoose.Types.ObjectId(party.id) }
-        );
+        return models.Deputy.updateOne({ _id: member.id }, { party: party.id });
     };
 }
 

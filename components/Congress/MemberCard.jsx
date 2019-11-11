@@ -21,11 +21,11 @@ export default ({ deputy, index }) => (
             </div>
             <div className="flex flex-row justify-start">
                 <div className="flex-1">
-                    {/* <img
+                    <img
                         className="h-6 w-8 "
-                        src={`${congressScrapper.url}${member.props.memberParty.attrs.src}`}
-                        alt={member.props.memberParty.attrs.alt}
-                    /> */}
+                        src={`${congressScrapper.url}${deputy.party.flagEndpoint}`}
+                        alt={deputy.name}
+                    />
                 </div>
                 <div className="flex-1">
                     <p className="text-gray-600 flex-1">{index}</p>
