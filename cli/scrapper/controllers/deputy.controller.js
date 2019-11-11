@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const { models } = require("../../../models");
 
 const RGX_OWNER_DEPUTY = {
@@ -22,7 +24,7 @@ function deputyController() {
         const { keys } = RGX_OWNER_DEPUTY;
         return models.Deputy.updateOne(
             { _id: member.id },
-            { department: items.shift()[keys.department] }
+            { department: items.shift()[keys.department].trim() }
         );
     };
 
@@ -39,6 +41,17 @@ function deputyController() {
                 numberPeriods: items.length,
                 firstPeriodOn: firstDate
             }
+        );
+    };
+
+    this._assignParty = (member, { flagImage, parties }) => {
+        const party = parties
+            .filter(party => party.flagEndpoint === flagImage.attrs.src)
+            .pop();
+
+        return models.Deputy.updateOne(
+            { _id: member.id },
+            { partyFk: new mongoose.Types.ObjectId(party.id) }
         );
     };
 }
@@ -62,9 +75,13 @@ deputyController.prototype.makeSense = function(
         })
         .filter(res => Array.isArray(res));
 
+    const partyEntity = profileScrapper[1].pop();
+    const flagImage = partyEntity.props.flagImage.pop();
+
     return Promise.all([
         this._assignDepartment(member, [...deputyHistory]),
-        this._assignSeniority(member, [...deputyHistory])
+        this._assignSeniority(member, [...deputyHistory]),
+        this._assignParty(member, { flagImage, parties })
     ]);
 };
 

@@ -52,14 +52,12 @@ connectDatabase()
             })
         );
 
-        console.log(
-            await Promise.all(
-                scrappedProfiles.map((scrappedProfile, index) =>
-                    deputyController.makeSense(
-                        scrappedProfile[0],
-                        members[index],
-                        parties
-                    )
+        await Promise.all(
+            scrappedProfiles.map((scrappedProfile, index) =>
+                deputyController.makeSense(
+                    scrappedProfile[0],
+                    members[index],
+                    parties
                 )
             )
         );

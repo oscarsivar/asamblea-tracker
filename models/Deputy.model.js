@@ -16,7 +16,8 @@ const deputySchema = new Schema(
             type: Date,
             default: new Date()
         },
-        congressFk: Schema.Types.ObjectId
+        congressFk: Schema.Types.ObjectId,
+        partyFk: Schema.Types.ObjectId
     },
     {
         timestamps: { createdAt: true, updatedAt: true }
