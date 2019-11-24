@@ -1,13 +1,27 @@
 import MemberCard from "./MemberCard";
+import FiltersBar from "../Filters/FiltersBar";
 
 export default class CongressGrid extends React.Component {
+    state = { deputies: [] };
+
+    componentDidMount() {
+        this.setState({ deputies: this.props.deputies });
+    }
+
+    orderDeputies(deputies) {
+        this.setState({ deputies });
+    }
+
     render() {
-        const { deputies } = this.props;
         return (
             <div className="container mx-auto">
-                <div className="w-full p-2">
+                <FiltersBar
+                    deputies={this.props.deputies}
+                    orderDeputies={deputies => this.orderDeputies(deputies)}
+                />
+                <div className="w-full px-2">
                     <div className="flex flex-wrap flex-row justify-between items-center">
-                        {deputies.map((deputy, key) => (
+                        {this.state.deputies.map((deputy, key) => (
                             <MemberCard key={key} deputy={deputy} index={key} />
                         ))}
                     </div>
