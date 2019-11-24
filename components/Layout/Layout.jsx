@@ -3,8 +3,8 @@ import "../../assets/style.css";
 import Header from "./Header";
 
 export default props => (
-    <div className="bg-gray-200">
-        <div className="px-4">
+    <div className="bg-gray-300">
+        <div className="">
             <Header />
             <div>{props.children}</div>
         </div>

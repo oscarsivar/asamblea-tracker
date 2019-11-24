@@ -5,10 +5,12 @@ export default class CongressGrid extends React.Component {
         const { deputies } = this.props;
         return (
             <div className="container mx-auto">
-                <div className="flex items-center justify-center flex-wrap mb-8">
-                    {deputies.map((deputy, key) => (
-                        <MemberCard key={key} deputy={deputy} index={key} />
-                    ))}
+                <div className="w-full p-2">
+                    <div className="flex flex-wrap flex-row justify-between items-center">
+                        {deputies.map((deputy, key) => (
+                            <MemberCard key={key} deputy={deputy} index={key} />
+                        ))}
+                    </div>
                 </div>
             </div>
         );
