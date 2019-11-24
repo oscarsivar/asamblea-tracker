@@ -9,7 +9,7 @@ export default ({ deputy, index }) => {
     const seniorityInYears = currentYear - firstPeriodOn;
 
     return (
-        <div className="h-48 w-full bg-gray-300 sm:w-6/12 lg:w-4/12 xl:w-3/12 p-2 bg-white flex-grow-0 flex-flex-shrink-0 flex">
+        <div className="h-48 w-full bg-gray-300 sm:w-6/12 lg:w-4/12 xl:w-3/12 p-2 bg-white flex-grow-0 flex-flex-shrink-0 flex ">
             {/* Member picture */}
             <div
                 className="w-5/12 bg-cover bg-top"
@@ -22,7 +22,7 @@ export default ({ deputy, index }) => {
             {/* Member details */}
             <div className="w-7/12 p-3 bg-white flex content-between flex-wrap">
                 {/* Member name */}
-                <div className="w-full">
+                <div className="w-full" title={"Nombre completo"}>
                     <div className="text-gray-900 font-semibold text-xl leading-tight ">
                         {renderName(deputy.name).map(name => (
                             <p className="truncate">{name}</p>
@@ -31,7 +31,7 @@ export default ({ deputy, index }) => {
                 </div>
 
                 {/* Member props */}
-                <div className="w-full">
+                <div className="w-full" title="Años de servicio">
                     {/* Member seniority */}
                     <div className="text-sm text-gray-600 flex items-center justify-between">
                         <div className="flex items-center">
@@ -43,15 +43,20 @@ export default ({ deputy, index }) => {
                                 <path d="M1 4c0-1.1.9-2 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4zm2 2v12h14V6H3zm2-6h2v2H5V0zm8 0h2v2h-2V0zM5 9h2v2H5V9zm0 4h2v2H5v-2zm4-4h2v2H9V9zm0 4h2v2H9v-2zm4-4h2v2h-2V9zm0 4h2v2h-2v-2z" />
                             </svg>
                             <span className="ml-2">
-                                {`${firstPeriodOn} • ${seniorityInYears} año${
-                                    seniorityInYears > 1 ? "s" : ""
-                                }`}
+                                {seniorityInYears > 0
+                                    ? `${firstPeriodOn} (${seniorityInYears} año${
+                                          seniorityInYears > 1 ? "s" : ""
+                                      })`
+                                    : "Empezó este año"}
                             </span>
                         </div>
                     </div>
 
                     {/* Member party affiliation */}
-                    <div className="text-sm text-gray-600 flex items-center justify-between">
+                    <div
+                        className="text-sm text-gray-600 flex items-center justify-between"
+                        title="Partido político"
+                    >
                         <div className="flex items-center">
                             <svg
                                 className="fill-current text-gray-600 w-3 h-3"
@@ -77,7 +82,10 @@ export default ({ deputy, index }) => {
                     </div>
 
                     {/* Member department */}
-                    <div className="text-sm text-gray-600 flex items-center justify-between">
+                    <div
+                        className="text-sm text-gray-600 flex items-center justify-between"
+                        title="Departamento que representa"
+                    >
                         <div className="flex items-center">
                             <svg
                                 className="fill-current text-gray-600 w-3 h-3"
