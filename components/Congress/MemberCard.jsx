@@ -24,8 +24,10 @@ export default ({ deputy, index }) => {
                 {/* Member name */}
                 <div className="w-full" title={"Nombre completo"}>
                     <div className="text-gray-900 font-semibold text-xl leading-tight ">
-                        {renderName(deputy.name).map(name => (
-                            <p className="truncate">{name}</p>
+                        {renderName(deputy.name).map((name, key) => (
+                            <p className="truncate" key={key}>
+                                {name}
+                            </p>
                         ))}
                     </div>
                 </div>
