@@ -1,7 +1,7 @@
 const { models } = require("../../../models");
 
 const RGX_OWNER_DEPUTY = {
-    rgx: /^(Diputad(?:o|a)\sPropietari(?:o|a))(?:.*departamento\sde\s([A-Za-z_ÑñÁáÉéÍíÓóÚú\s]+)\s*.*)?,Per[íi]odo:\s(\w+)?\s?([0-9]{4})\s(?:–|-)\s(\w+)?\s?([0-9]{4})$/i,
+    rgx: /^(Diputad(?:o|a)\sPropietari(?:o|a))(?:.*[Dd]epartamento\sde\s([A-Za-z_ÑñÁáÉéÍíÓóÚú\s]+)\s*.*)?,Per[íi]odo:?\s(\w+)?\s?([0-9]{4})\s?(?:–|-)\s?(\w+)?\s?([0-9]{4})$/i,
     keys: {
         department: 2,
         period: {
@@ -65,7 +65,7 @@ deputyController.prototype.makeSense = function(
     const deputyHistory = historyItem
         .map(prop => {
             const str = prop.value.join().trim();
-            const rgx = RGX_OWNER_DEPUTY.rgx.exec(str);
+            const rgx = RGX_OWNER_DEPUTY.rgx.exec(str.trim());
 
             return rgx === null ? str : rgx;
         })

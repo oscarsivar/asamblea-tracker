@@ -64,6 +64,7 @@ connectDatabase()
         );
 
         console.log(`Scrapping succesfully completed! @ ${new Date()}`);
+        process.exit(0);
     })
     .catch(function(err) {
         console.error(
