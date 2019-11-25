@@ -1,7 +1,7 @@
 const { models } = require("../../../models");
 
 const RGX_OWNER_DEPUTY = {
-    rgx: /^(Diputad(?:o|a)\sPropietari(?:o|a)).*departamento\sde\s([A-Za-z_ÑñÁáÉéÍíÓóÚú\s]+)\s*.*Per[íi]odo:\s(\w+)\s([0-9]{4})\s(?:–|-)\s(\w+)\s([0-9]{4})$/i,
+    rgx: /^(Diputad(?:o|a)\sPropietari(?:o|a))(?:.*departamento\sde\s([A-Za-z_ÑñÁáÉéÍíÓóÚú\s]+)\s*.*)?,Per[íi]odo:\s(\w+)?\s?([0-9]{4})\s(?:–|-)\s(\w+)?\s?([0-9]{4})$/i,
     keys: {
         department: 2,
         period: {
@@ -54,7 +54,8 @@ function deputyController() {
 deputyController.prototype.makeSense = function(
     profileScrapper,
     member,
-    parties
+    parties,
+    _index
 ) {
     const careerEntity = profileScrapper[0][0];
     const historyItem = Array.isArray(careerEntity.props.historyItem)

@@ -53,13 +53,14 @@ connectDatabase()
         );
 
         await Promise.all(
-            scrappedProfiles.map((scrappedProfile, index) =>
-                deputyController.makeSense(
+            scrappedProfiles.map((scrappedProfile, index) => {
+                return deputyController.makeSense(
                     scrappedProfile[0],
                     members[index],
-                    parties
-                )
-            )
+                    parties,
+                    index
+                );
+            })
         );
 
         console.log(`Scrapping succesfully completed! @ ${new Date()}`);
