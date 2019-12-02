@@ -1,7 +1,4 @@
-// Use Redux
-import congressScrapper from "../../cli/scrapper/models/congress.scrapper.json";
-
-export default ({ deputy, index }) => {
+export default ({ deputy, asambleaBaseUrl }) => {
     const now = new Date();
     const currentYear = now.getFullYear();
 
@@ -14,7 +11,7 @@ export default ({ deputy, index }) => {
             <div
                 className="w-5/12 bg-cover bg-top"
                 style={{
-                    backgroundImage: `url('${congressScrapper.url}${deputy.pictureEndpoint}')`
+                    backgroundImage: `url('${asambleaBaseUrl}${deputy.pictureEndpoint}')`
                 }}
                 title={deputy.name}
             />
@@ -23,13 +20,20 @@ export default ({ deputy, index }) => {
             <div className="w-7/12 p-3 bg-white flex content-between flex-wrap">
                 {/* Member name */}
                 <div className="w-full" title={"Nombre completo"}>
-                    <div className="text-gray-900 font-semibold text-xl leading-tight ">
+                    <div className="text-gray-900 font-medium text-xl leading-tight">
                         {renderName(deputy.name).map((name, key) => (
                             <p className="truncate" key={key}>
                                 {name}
                             </p>
                         ))}
                     </div>
+                    <a
+                        href={`${asambleaBaseUrl}/${deputy.profileEndpoint}`}
+                        target="_blank"
+                        className="text-xs underline text-blue-500 font-hairline"
+                    >
+                        Ver en asamblea.gob.sv
+                    </a>
                 </div>
 
                 {/* Member props */}
@@ -72,7 +76,7 @@ export default ({ deputy, index }) => {
                                 <div
                                     className="h-3 w-5 bg-cover bg-center"
                                     style={{
-                                        backgroundImage: `url('${congressScrapper.url}${deputy.party.flagEndpoint}')`
+                                        backgroundImage: `url('${asambleaBaseUrl}${deputy.party.flagEndpoint}')`
                                     }}
                                     title={deputy.name}
                                 />
