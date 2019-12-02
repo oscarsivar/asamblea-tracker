@@ -35,7 +35,8 @@ Cuando ya tengas seteado la base de datos (no es necesario que crees ninguna col
     MONGO_HOST=host_name_o_dirección_ip
     MONGO_PORT=puerto_de_mongo
 
-Ahora sí, ya que tienes la base de datos lista, puedes simplemente ejecutar:
+Ahora sí, ya que tienes la base de datos lista, puedes simplemente ejecutar
+(Usuarios de Windows puede que necesiten instalar [win-node-env](https://www.npmjs.com/package/win-node-env)):
 
     ~> npm run dev
 

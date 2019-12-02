@@ -6,7 +6,7 @@
     "scripts": {
         "scrap": "node cli/scrapper/index.js",
         "dev:client": "node app.js",
-        "dev": "npm run scrap && npm run dev:client",
+        "dev": "NODE_ENV=development npm run scrap && npm run dev:client",
         "build": "next build",
         "start": "NODE_ENV=production node app.js"
     },
