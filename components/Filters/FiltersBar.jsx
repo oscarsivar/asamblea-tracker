@@ -6,7 +6,11 @@ export default class FiltersBar extends React.Component {
     state = {
         orderBy: 0,
         orderOptions: [
-            { by: "name", label: "Alfabeticamente", direction: true },
+            {
+                by: "name",
+                label: "Alfabéticamente",
+                direction: true
+            },
             {
                 by: "firstPeriodOn",
                 label: "Mayor tiempo como congresista",

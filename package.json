@@ -1,7 +1,7 @@
 {
-    "name": "asamblea-audit",
+    "name": "asamblea-client",
     "version": "1.0.0",
-    "description": "¡Vamos a ver qué hacen nuestros diputados a diario!",
+    "description": "¡Vamos a auditar el trabajo de nuestros representantes!",
     "main": "app.js",
     "scripts": {
         "dev": "node app.js",
@@ -11,7 +11,8 @@
     "keywords": [
         "asamblea",
         "sv",
-        "elsalvador"
+        "elsalvador",
+        "client"
     ],
     "author": "@mariomenjr",
     "license": "MIT",
