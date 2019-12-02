@@ -22,7 +22,7 @@ Si eres desarrollador y quieres aportar al proyecto, antes que nada, muchísimas
 
 ### #Run_Forrest_Run
 
-El proyecto está construído haciendo uso del framework de desarrollo [Next.js](https://nextjs.org/). Es una implementación server-side muy bien realizada de la famosísima librería front-end de Facebook, [ReactJS](https://reactjs.org/). Para facilitar lo más posible la ejecución del código en cualquier entorno de desarrollo local, implementé el sistema de contenedores [Docker](https://www.docker.com/). Por lo qué para levantar el proyecto solo necesitás escribir un comando.
+El proyecto está construído haciendo uso del framework de desarrollo [Next.js](https://nextjs.org/). Es una implementación server-side muy bien realizada de la famosísima librería front-end de Facebook, [ReactJS](https://reactjs.org/). Para producción utilizo [Docker](https://www.docker.com/).
 
 Sin embargo, hay un requerimiento más. Cuando empecé la plataforma, se me hizo muy fácil crear una base de datos de desarrollo en el sitio web [mlab.com](https://mlab.com/login/). Por el momento, es la manera que recomiendo. Sos libre de instalar una instancia de MongoDB en tu computadora o incluso extender la configuración de Docker.
 
@@ -37,4 +37,10 @@ Cuando ya tengas seteado la base de datos (no es necesario que crees ninguna col
 
 Ahora sí, ya que tienes la base de datos lista, puedes simplemente ejecutar:
 
-    ~> docker-compose up
+    ~> npm run dev
+
+![npm run dev](./assets/npm.run.dev.png)
+
+Also, if you are a Visual Studio Code user, you can take a look at the pre-configured debugging launchers.
+
+![npm run dev](./assets/debug.tools.png)
