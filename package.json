@@ -4,9 +4,9 @@
     "description": "¡Vamos a auditar el trabajo de nuestros representantes!",
     "main": "app.js",
     "scripts": {
-        "scrap": "node cli/scrapper/index.js",
+        "scrape": "node cli/scrapper/index.js",
         "dev:client": "node app.js",
-        "dev": "NODE_ENV=development npm run scrap && npm run dev:client",
+        "dev": "NODE_ENV=development npm run scrape && npm run dev:client",
         "build": "next build",
         "start": "NODE_ENV=production node app.js"
     },
