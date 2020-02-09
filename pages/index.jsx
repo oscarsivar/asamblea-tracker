@@ -1,4 +1,4 @@
-import trae from "trae";
+import axios from "axios";
 
 import Layout from "../components/Layout/Layout";
 import CongressGrid from "../components/Congress/CongressGrid";
@@ -15,7 +15,6 @@ export default class Index extends React.Component {
 }
 
 Index.getInitialProps = async () => {
-    const deputies = (await trae.get("http://localhost:3000/api/deputies"))
-        .data;
+    const deputies = (await axios.get("/api/deputies")).data;
     return { deputies };
 };

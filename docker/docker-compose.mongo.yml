@@ -1,0 +1,15 @@
+version: "3.1"
+services:
+    mongo:
+        image: mongo
+        restart: always
+        ports:
+            - "27017:27017"
+    app:
+        build:
+            context: ../
+            dockerfile: docker/${DOCKERFILE}
+        ports:
+            - "${PORT}:${PORT}"
+        depends_on:
+            - mongo
