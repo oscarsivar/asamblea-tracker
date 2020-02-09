@@ -13,17 +13,11 @@ const connectDatabase = () => {
         MONGO_PORT,
         MONGO_DB
     } = process.env;
-    console.log({ MONGO_PASS });
-    if (MONGO_PASS === undefined)
-        return mongoose.connect(
-            `mongodb://${MONGO_HOST}:${MONGO_PORT}/${MONGO_DB}`,
-            { useNewUrlParser: true, useUnifiedTopology: true }
-        );
-    else
-        return mongoose.connect(
-            `mongodb://${MONGO_USER}:${MONGO_PASS}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DB}`,
-            { useNewUrlParser: true, useUnifiedTopology: true }
-        );
+
+    return mongoose.connect(
+        `mongodb://${MONGO_USER}:${MONGO_PASS}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DB}`,
+        { useNewUrlParser: true, useUnifiedTopology: true }
+    );
 };
 
 module.exports = {

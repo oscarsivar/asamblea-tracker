@@ -1,7 +1,6 @@
 #!/bin/bash
 
 USR_ENV=$1
-COMPOSE=1
 
 if [ -z $USR_ENV ]
 then
@@ -17,24 +16,13 @@ else
         export DOCKERFILE=Dockerfile.dev
     fi
 
-    if [ ! -f .env ]
+    if [ -f .env ]
     then
-        export MONGO_USER=root
-        export MONGO_PASS=
-        export MONGO_DB=asamblea-audit
-        export MONGO_HOST=mongo
-        export MONGO_PORT=27017
-
-        COMPOSE=2
-    fi
-    echo $COMPOSE
-    if [ $COMPOSE -eq 1 ]
-    then
-        docker-compose -f ./docker/docker-compose.yml up --build
-    elif [ $COMPOSE -eq 2 ]
-    then
-        # docker-compose.exe -f docker/docker-compose.yml -f docker/docker-compose.mongo.yml config
-        docker-compose -f ./docker/docker-compose.mongo.yml up --build
+        echo "PORT: $PORT, DOCKERFILE: $DOCKERFILE"
+        # docker-compose -f docker/docker-compose.yml config
+        docker-compose -f ./docker/docker-compose.yml up --build --remove-orphans
+    else
+        echo ">> You need to create an .env file"
     fi
 fi
 

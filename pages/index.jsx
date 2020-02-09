@@ -1,4 +1,4 @@
-import axios from "axios";
+import srv from "../utils/service";
 
 import Layout from "../components/Layout/Layout";
 import CongressGrid from "../components/Congress/CongressGrid";
@@ -15,6 +15,6 @@ export default class Index extends React.Component {
 }
 
 Index.getInitialProps = async () => {
-    const deputies = (await axios.get("/api/deputies")).data;
+    const deputies = (await srv.get(`api/deputies`)).data;
     return { deputies };
 };
