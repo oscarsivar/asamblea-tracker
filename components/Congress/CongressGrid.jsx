@@ -1,7 +1,7 @@
 import MemberCard from "./MemberCard";
 import FiltersBar from "../Filters/FiltersBar";
 
-import congressScrapper from "../../cli/scrapper/models/congress.scrapper.json";
+import congressScraper from "../../cli/scraper/models/congress.scraper.json";
 
 export default class CongressGrid extends React.Component {
     state = { deputies: [] };
@@ -27,7 +27,7 @@ export default class CongressGrid extends React.Component {
                             <MemberCard
                                 key={key}
                                 deputy={deputy}
-                                asambleaBaseUrl={congressScrapper.url}
+                                asambleaBaseUrl={congressScraper.url}
                             />
                         ))}
                     </div>

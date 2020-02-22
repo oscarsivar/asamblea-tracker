@@ -4,7 +4,7 @@
     "description": "¡Vamos a auditar el trabajo de nuestros representantes!",
     "main": "app.js",
     "scripts": {
-        "scrape": "cross-env node cli/scrapper/index.js",
+        "scrape": "cross-env node cli/scraper/index.js",
         "dev:client": "cross-env node app.js",
         "dev": "cross-env NODE_ENV=development npm run scrape && npm run dev:client",
         "build": "cross-env next build",
