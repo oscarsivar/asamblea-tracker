@@ -1,10 +1,13 @@
 require("dotenv").config();
 
+const pdfjsLib = require("pdfjs-dist/build/pdf");
 const mongoose = require("mongoose");
 const scrappity = require("scrappity");
+
 const congressScraper = require("./models/congress.scraper.json");
 const profileScraper = require("./models/profile.scraper.json");
 const partyScraper = require("./models/parties.scraper.json");
+const agendaScraper = require("./models/agenda.scraper.json");
 
 const { connectDatabase } = require("../../models");
 const {
@@ -62,6 +65,20 @@ connectDatabase()
                 );
             })
         );
+
+        agendaScraper.queryObjects[0].endpoint = agendaScraper.queryObjects[0].endpoint
+            .replace(`:session`, `85`)
+            .replace(`:congress-period`, `2018-2021`);
+        const scrapedAgenda = (await scrappity(agendaScraper))[0][0];
+        const uri =
+            agendaScraper.url + scrapedAgenda[0].props.fileUrls[3].attrs.href;
+
+        const doc = await pdfjsLib.getDocument(`${uri}`).promise;
+        const meta = await doc.getMetadata();
+        const page = await doc.getPage(1);
+        const content = await page.getTextContent();
+
+        debugger;
 
         console.log(`Scrapping succesfully completed! @ ${new Date()}`);
         process.exit(0);

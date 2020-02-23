@@ -1,0 +1,22 @@
+{
+    "url": "https://www.asamblea.gob.sv",
+    "queryObjects": [
+        {
+            "name": "sessionAgenda",
+            "endpoint": "agenda-legislativa/archivo-historico/sesion/:session/Ordinaria/:congress-period",
+            "collections": [
+                {
+                    "name": "sessionSummary",
+                    "query": "#collapse1 > table > tbody > tr",
+                    "props": [
+                        {
+                            "name": "fileUrls",
+                            "query": "td > ul > a",
+                            "attrs": ["href"]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
