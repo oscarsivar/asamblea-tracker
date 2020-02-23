@@ -1,6 +1,7 @@
 #!/bin/bash
 
 USR_ENV=$1
+COMPOSE=false
 
 if [ -z $USR_ENV ]
 then
@@ -10,17 +11,27 @@ else
     then
         export PORT=80
         export DOCKERFILE=Dockerfile
+
+        COMPOSE=true
     elif [ $USR_ENV = "development" ]
     then
         export PORT=3000
         export DOCKERFILE=Dockerfile.dev
+
+        COMPOSE=true
     fi
 
     if [ -f .env ]
     then
-        echo "PORT: $PORT, DOCKERFILE: $DOCKERFILE"
-        # docker-compose -f docker/docker-compose.yml config
-        docker-compose -f ./docker/docker-compose.yml up --build --remove-orphans
+        echo "Preparing docker-compose file..."
+
+        if [ $COMPOSE = true ]
+        then
+            # docker-compose -f docker/docker-compose.yml config
+            docker-compose -f ./docker/docker-compose.yml up --build --remove-orphans
+        else
+            echo ">> Provided environment not supported"
+        fi
     else
         echo ">> You need to create an .env file"
     fi
