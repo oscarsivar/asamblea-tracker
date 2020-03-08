@@ -4,8 +4,18 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Node: Scraper",
+            "name": "Node: Scrape Congress",
             "program": "${workspaceFolder}/cli/scraper/index.js",
+            "env": {
+                "NODE_ENV": "development"
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Node: Scrape Agenda",
+            "program": "${workspaceFolder}/cli/scraper/index.js",
+            "args": ["agenda"],
             "env": {
                 "NODE_ENV": "development"
             }

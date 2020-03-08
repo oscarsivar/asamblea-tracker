@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const congressSchema = new Schema(
     {
+        slug: String,
         periodStart: Date,
         periodEnd: Date,
         lastElection: Date,
