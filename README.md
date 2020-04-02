@@ -2,7 +2,7 @@ English version [here](./.github/en/README.md).
 
 # Asamblea Viewer
 
-> Por el momento, puedes acceder a la versión temprana de la plataforma haciendo click en este [enlace](http://149.28.67.188:3000/).
+> Por el momento, puedes acceder a la versión temprana de la plataforma haciendo click en este [enlace](http://35.230.22.184/).
 
 ## Pre-requisitos
 
@@ -52,7 +52,7 @@ Lee [CONTRIBUTING.md](./.github/es/CONTRIBUTING.md)
 
 ## Enlaces
 
--   👀 [Platform Preview](http://35.247.23.58:80/)
+-   👀 [Platform Preview](http://35.230.22.184/)
 -   😊 [Tweet hi!](https://twitter.com/mariomenjr)
 -   🌎 [Asamblea Legislativa: Diputado/as](https://www.asamblea.gob.sv/diputados)
 
