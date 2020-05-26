@@ -1,53 +1,50 @@
 import React from "react";
 
 import OrderBy from "./OrderBy";
+import SearchBox from "./SearchBox";
 
-export default class FiltersBar extends React.Component {
-    state = {
-        orderBy: 0,
-        orderOptions: [
-            {
-                by: "name",
-                label: "Alfabéticamente",
-                direction: true
-            },
-            {
-                by: "firstPeriodOn",
-                label: "Mayor tiempo como congresista",
-                direction: true
-            },
-            {
-                by: "firstPeriodOn",
-                label: "Menor tiempo como congresista",
-                direction: false
-            }
-        ]
-    };
+export default function FiltersBar(props) {
+    const handleOnChangeOrder = React.useCallback(
+        (event, orderOptions) => {
+            const selected = event.currentTarget.value;
 
-    handleOnChangeOrder(event) {
-        const selected = event.currentTarget.value;
+            const orderOption = orderOptions[selected];
+            props.orderDeputies(
+                props.shownDeputies.sort((left, right) => {
+                    const { by, direction } = orderOption;
+                    if (left[by] < right[by]) return direction ? -1 : 1;
+                    if (left[by] > right[by]) return direction ? 1 : -1;
+                    return 0;
+                })
+            );
+        },
+        [props.shownDeputies, props.orderDeputies]
+    );
 
-        const orderOption = this.state.orderOptions[selected];
-        const deputies = this.props.deputies.sort((left, right) => {
-            const { by, direction } = orderOption;
-            if (left[by] < right[by]) return direction ? -1 : 1;
-            if (left[by] > right[by]) return direction ? 1 : -1;
-            return 0;
-        });
+    const handleOnSearch = React.useCallback(
+        (event) => {
+            const str = event.target.value;
 
-        this.setState({ orderBy: selected });
-        this.props.orderDeputies(deputies);
-    }
+            props.searchDeputies(
+                props.deputies.filter(
+                    (d) =>
+                        d.name.includes(str) ||
+                        d.party.name.includes(str) ||
+                        d.department.includes(str)
+                )
+            );
+        },
+        [props.deputies, props.searchDeputies]
+    );
 
-    render() {
-        return (
-            <div className="py-2">
-                <OrderBy
-                    selected={this.state.orderBy}
-                    options={this.state.orderOptions}
-                    handleOnChange={event => this.handleOnChangeOrder(event)}
-                />
+    return (
+        <div className="py-2 flex flex-wrap">
+            <div className="w-full md:w-2/3 px-3 mb-4 md:mb-0">
+                <SearchBox handleOnSearch={handleOnSearch} />
             </div>
-        );
-    }
+            <div className="w-full md:w-1/3 px-3 mb-4 md:mb-0">
+                <OrderBy handleOnChange={handleOnChangeOrder} />
+            </div>
+        </div>
+    );
 }

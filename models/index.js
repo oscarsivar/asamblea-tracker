@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 
+const Attendance = require("./Attendance.model");
 const Congress = require("./Congress.model");
+const Plenary = require("./Plenary.model");
 const Deputy = require("./Deputy.model");
 const Career = require("./Career.model");
 const Party = require("./Party.model");
@@ -11,7 +13,7 @@ const connectDatabase = () => {
         MONGO_PASS,
         MONGO_HOST,
         MONGO_PORT,
-        MONGO_DB
+        MONGO_DB,
     } = process.env;
 
     return mongoose.connect(
@@ -22,5 +24,5 @@ const connectDatabase = () => {
 
 module.exports = {
     connectDatabase,
-    models: { Congress, Deputy, Career, Party }
+    models: { Attendance, Congress, Plenary, Deputy, Career, Party },
 };

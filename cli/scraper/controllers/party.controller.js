@@ -11,7 +11,7 @@ const RGX_NUMBER_DEPUTIES = {
 
 function partyController() {}
 
-partyController.prototype.makeSense = function(scrappedParties) {
+partyController.prototype.fillParties = function(scrappedParties) {
     return Promise.all(
         scrappedParties
             .map(scrappedParty => {

@@ -8,19 +8,13 @@ const deputySchema = new Schema(
         pictureEndpoint: String,
         profileEndpoint: String,
         uniqueHash: String,
-        numberPeriods: {
-            type: Number,
-            default: 1
-        },
-        firstPeriodOn: {
-            type: Date,
-            default: new Date()
-        },
+        numberPeriods: { type: Number, default: 1 },
+        firstPeriodOn: { type: Date, default: new Date() },
         congress: { type: Schema.Types.ObjectId, ref: "Congress" },
-        party: { type: Schema.Types.ObjectId, ref: "Party" }
+        party: { type: Schema.Types.ObjectId, ref: "Party" },
     },
     {
-        timestamps: { createdAt: true, updatedAt: true }
+        timestamps: { createdAt: true, updatedAt: true },
     }
 );
 

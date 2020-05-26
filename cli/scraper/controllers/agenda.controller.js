@@ -1,75 +1,125 @@
-const { models } = require("../../../models");
+// const { models } = require("../../../models");
+const fs = require("fs");
+const pdfjsLib = require("pdfjs-dist/build/pdf");
+const stringSimilarity = require("string-similarity");
 
-function agendaController() {}
+const {
+    COMPARING: {
+        AGENDA: {
+            ATTENDANCE_MARK,
+            ATTENDANCE_NOT_PRESENT,
+            ATTENDANCE_PRESENT,
+            HEADER_BORDER_WORD,
+        },
+    },
+} = require("../config");
 
-agendaController.prototype.makeSense = async function(scrapedAgenda) {
-    const checkIsX = str =>
-        str.toUpperCase() == `X` ||
-        str.toUpperCase() == `LX` ||
-        str.toUpperCase() == `RX`;
-    const checkIsName = str => isNaN(str) && !checkIsX(str);
-    let presentX = 0;
+function agendaController() {
+    this._takeAttendance = async function (scrapedAgenda) {
+        const checkIsX = (str) =>
+            str.toUpperCase() == ATTENDANCE_MARK ||
+            str.toUpperCase() == ATTENDANCE_PRESENT ||
+            str.toUpperCase() == ATTENDANCE_NOT_PRESENT;
+        const checkIsName = (str) => isNaN(str) && !checkIsX(str);
+        let presentX = 0;
 
-    const attendances = scrapedAgenda
-        .filter(f => f.str.trim())
-        .reduce((agenda, current) => {
-            const len = agenda.length - 1;
+        const attendances = scrapedAgenda
+            .reduce((agenda, current) => {
+                const len = agenda.length - 1;
+                if (current.str.trim()) {
+                    if (len < 0) agenda.push(current);
+                    else {
+                        const str = agenda[len].str.trim();
 
-            if (len < 0) agenda.push(current);
-            else {
-                const str = agenda[len].str.trim();
+                        if (checkIsName(str) && checkIsName(current.str)) {
+                            agenda[len].str += current.str;
+                        } else {
+                            if (current.str.toUpperCase() === ATTENDANCE_MARK) {
+                                if (presentX === 0)
+                                    presentX =
+                                        current.transform[4] + current.width; // Edge case
 
-                if (checkIsName(str) && checkIsName(current.str)) {
-                    agenda[len].str += current.str;
-                } else {
-                    if (current.str.toUpperCase() === `X`) {
-                        if (presentX === 0)
-                            presentX = current.transform[4] + current.width; // Edge case
-
-                        current.str =
-                            current.transform[4] <= presentX ? `LX` : `RX`;
+                                current.str =
+                                    current.transform[4] <= presentX
+                                        ? ATTENDANCE_PRESENT
+                                        : ATTENDANCE_NOT_PRESENT;
+                            }
+                            agenda.push(current);
+                        }
                     }
-                    agenda.push(current);
                 }
-            }
-            return agenda;
-        }, [])
-        .reduce((report, current) => {
-            const { str } = current;
+                return agenda;
+            }, [])
+            .reduce(
+                (bag, current) => {
+                    const { str } = current;
 
-            const isNumber = !isNaN(str);
-            const isName = checkIsName(str);
-            const isX = checkIsX(str);
+                    const isNumber = !isNaN(str);
+                    const isName = checkIsName(str);
+                    const isX = checkIsX(str);
 
-            if (isNumber) report.push({ i: str });
+                    if (isNumber && bag.cache[str] === undefined) {
+                        bag.report.push({ i: str });
+                        bag.cache[str] = bag.report.length;
+                    }
 
-            const len = report.length - 1;
+                    const len = bag.report.length - 1;
 
-            if (isName) {
-                if (report[len].owner === undefined) report[len].owner = str;
-                else report[len].alternate = str;
-            }
+                    if (isName) {
+                        if (bag.report[len].owner === undefined)
+                            bag.report[len].owner = str;
+                        else bag.report[len].alternate = str;
+                    }
 
-            if (isX) {
-                report[len].present = str === `LX`;
-            }
+                    if (isX) {
+                        bag.report[len].present = str === ATTENDANCE_PRESENT;
+                    }
 
-            return report;
-        }, []);
+                    return bag;
+                },
+                { report: [], cache: {} }
+            );
+        return attendances.report;
+    };
+}
 
-    // const deputies = (await models.Deputy.find()).map(d => ({
-    //     deputy: d
-    // }));
+agendaController.prototype.processAttendance = async function ({
+    uri,
+    deputies,
+}) {
+    const fileName = `./cli/scraper/docs/${uri.split("/").pop()}`;
+    const isLocal = fs.existsSync(fileName);
 
-    // TODO: This is expensive, find another way
-    // const foundInAgenda = deputies.map(d => {
-    //     for (const j in attendances)
-    //         if (attendances[j].str.trim() == d.name)
-    //             return { ...d, present: true };
-    //     return { ...d, present: false };
-    // });
-    console.log({ attendances });
-    debugger;
+    const pages = [];
+    const doc = await pdfjsLib.getDocument(`${isLocal ? fileName : uri}`)
+        .promise;
+
+    if (!isLocal) fs.writeFileSync(`${fileName}`, await doc.getData());
+
+    for (let pageIndex = 1; pageIndex <= doc.numPages; pageIndex++) {
+        const page = await doc.getPage(pageIndex);
+        const content = await page.getTextContent();
+
+        const border =
+            content.items.findIndex((item) =>
+                item.str.includes(HEADER_BORDER_WORD)
+            ) + 1;
+        pages.push([...content.items].slice(border));
+    }
+
+    const attendances = await this._takeAttendance(pages.flat());
+
+    // TODO: This is too expensive. Find a better way.
+    return attendances.map((attendance) => ({
+        ...attendance,
+        deputy:
+            deputies[
+                stringSimilarity.findBestMatch(
+                    attendance.owner.trim(),
+                    deputies.map((d) => d.name.trim())
+                ).bestMatchIndex
+            ],
+    }));
 };
 
 module.exports = new agendaController();

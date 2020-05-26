@@ -1,19 +1,23 @@
 export default function OrderBy(props) {
+    const [orderBy, orderBySet] = React.useState(0);
     return (
-        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <>
             <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1 pl-1"
                 htmlFor="grid-state"
             >
                 Ordenar por
             </label>
-            <div className="inline-block relative w-full sm:w-64">
+            <div className="inline-block relative w-full">
                 <select
-                    value={props.selected}
+                    value={orderBy}
                     className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                    onChange={props.handleOnChange}
+                    onChange={(event) => {
+                        orderBySet(event.target.value);
+                        props.handleOnChange(event, orderOptions);
+                    }}
                 >
-                    {props.options.map((option, key) => (
+                    {orderOptions.map((option, key) => (
                         <option key={key} value={key}>
                             {option.label}
                         </option>
@@ -29,6 +33,24 @@ export default function OrderBy(props) {
                     </svg>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
+
+const orderOptions = [
+    {
+        by: "name",
+        label: "Alfabéticamente",
+        direction: true,
+    },
+    {
+        by: "firstPeriodOn",
+        label: "Mayor tiempo como congresista",
+        direction: true,
+    },
+    {
+        by: "firstPeriodOn",
+        label: "Menor tiempo como congresista",
+        direction: false,
+    },
+];

@@ -6,20 +6,21 @@ function congressController() {
     this.props = {
         congress: {
             slug: "2018-2021",
+            nextPlenary: 101,
             lastElection: new Date(),
             nextElection: new Date(),
             periodStart: new Date(),
-            periodEnd: new Date()
-        }
+            periodEnd: new Date(),
+        },
     };
 }
 
-congressController.prototype.makeSense = async function(scrappedCongress) {
+congressController.prototype.fillCongress = async function (scrappedCongress) {
     try {
         const congress = await new models.Congress(this.props.congress).save();
-        const insertedMembers = await models.Deputy.insertMany(
+        const members = await models.Deputy.insertMany(
             scrappedCongress.map(
-                scrapped =>
+                (scrapped) =>
                     new models.Deputy({
                         name: scrapped.props.memberProfile.value[0].trim(),
                         department: ":department:",
@@ -29,11 +30,12 @@ congressController.prototype.makeSense = async function(scrappedCongress) {
                         uniqueHash: scrapped.props.memberProfile.attrs.href
                             .split("/")
                             .pop(),
-                        congress: congress.id
+                        congress: congress.id,
                     })
             )
         );
-        return { members: insertedMembers, congress };
+
+        return { members, congress };
     } catch (error) {
         throw error;
     }

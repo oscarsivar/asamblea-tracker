@@ -51,7 +51,7 @@ function deputyController() {
     };
 }
 
-deputyController.prototype.makeSense = function(
+deputyController.prototype.addDeputy = function(
     profileScraper,
     member,
     parties,
