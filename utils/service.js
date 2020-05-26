@@ -4,7 +4,9 @@ const PORT = process.env.PORT || 3000;
 
 function createService() {
     return axios.create({
-        baseURL: `http://localhost:${PORT}`
+        baseURL: process.browser
+            ? `${location.origin}`
+            : `http://localhost:${PORT}`,
     });
 }
 
