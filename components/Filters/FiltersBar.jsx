@@ -28,9 +28,11 @@ export default function FiltersBar(props) {
             props.searchDeputies(
                 props.deputies.filter(
                     (d) =>
-                        d.name.includes(str) ||
-                        d.party.name.includes(str) ||
-                        d.department.includes(str)
+                        d.name.toLowerCase().includes(str.toLowerCase()) ||
+                        d.party.name
+                            .toLowerCase()
+                            .includes(str.toLowerCase()) ||
+                        d.department.toLowerCase().includes(str.toLowerCase())
                 )
             );
         },
