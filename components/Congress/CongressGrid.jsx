@@ -5,39 +5,46 @@ import FiltersBar from "../Filters/FiltersBar";
 
 import congressScraper from "../../cli/scraper/models/congress.scraper.json";
 
-export default function CongressGrid(props) {
-    const [deputies, deputiesSet] = React.useState([]);
+export default function CongressGrid({ deputies }) {
+    const [filteredDeputies, filteredDeputiesSet] = React.useState([]);
     const [attendances, attendancesSet] = React.useState([]);
 
     React.useEffect(() => {
-        deputiesSet(props.deputies);
+        filteredDeputiesSet(deputies);
         Promise.all(
-            props.deputies.map(
-                async (deputy) =>
-                    await srv.get(`api/deputies/${deputy._id}/attendance`)
+            deputies.map(
+                async (card) =>
+                    await srv.get(`api/deputies/${card.deputy._id}/attendance`)
             )
         )
             .then((awaited) => attendancesSet(awaited.map((a) => a.data)))
             .catch(() => attendancesSet([]));
-    }, [props.deputies]);
+    }, [deputies]);
     return (
         <div className="container mx-auto">
             <FiltersBar
-                shownDeputies={deputies}
-                deputies={props.deputies}
-                orderDeputies={(oDeputies) => deputiesSet([...oDeputies])}
-                searchDeputies={(sDeputies) => deputiesSet([...sDeputies])}
+                filteredDeputies={filteredDeputies}
+                deputies={deputies}
+                orderDeputies={(oDeputies) =>
+                    filteredDeputiesSet([...oDeputies])
+                }
+                searchDeputies={(sDeputies) =>
+                    filteredDeputiesSet([...sDeputies])
+                }
             />
             <div className="w-full px-2">
                 <div className="flex flex-wrap flex-row justify-start items-center">
-                    {deputies.map((deputy, key) => (
-                        <MemberCard
-                            key={key}
-                            deputy={deputy}
-                            attendance={attendances[key]}
-                            asambleaBaseUrl={congressScraper.url}
-                        />
-                    ))}
+                    {filteredDeputies.map((card, key) => {
+                        console.log({ card, key });
+                        return (
+                            <MemberCard
+                                key={key}
+                                deputy={card.deputy}
+                                attendance={attendances[card.index]}
+                                asambleaBaseUrl={congressScraper.url}
+                            />
+                        );
+                    })}
                 </div>
             </div>
         </div>

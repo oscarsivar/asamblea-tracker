@@ -15,6 +15,8 @@ export default class Index extends React.Component {
 }
 
 Index.getInitialProps = async () => {
-    const deputies = (await srv.get(`api/deputies`)).data;
+    const deputies = (
+        await srv.get(`api/deputies`)
+    ).data.map((deputy, index) => ({ deputy, index }));
     return { deputies };
 };

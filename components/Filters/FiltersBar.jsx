@@ -3,40 +3,52 @@ import React from "react";
 import OrderBy from "./OrderBy";
 import SearchBox from "./SearchBox";
 
-export default function FiltersBar(props) {
+export default function FiltersBar({
+    deputies,
+    filteredDeputies,
+    orderDeputies,
+    searchDeputies,
+}) {
     const handleOnChangeOrder = React.useCallback(
         (event, orderOptions) => {
             const selected = event.currentTarget.value;
 
             const orderOption = orderOptions[selected];
-            props.orderDeputies(
-                props.shownDeputies.sort((left, right) => {
+            orderDeputies(
+                filteredDeputies.sort((left, right) => {
                     const { by, direction } = orderOption;
-                    if (left[by] < right[by]) return direction ? -1 : 1;
-                    if (left[by] > right[by]) return direction ? 1 : -1;
+                    if (left.deputy[by] < right.deputy[by])
+                        return direction ? -1 : 1;
+                    if (left.deputy[by] > right.deputy[by])
+                        return direction ? 1 : -1;
                     return 0;
                 })
             );
         },
-        [props.shownDeputies, props.orderDeputies]
+        [filteredDeputies, orderDeputies]
     );
 
     const handleOnSearch = React.useCallback(
         (event) => {
             const str = event.target.value;
 
-            props.searchDeputies(
-                props.deputies.filter(
+            searchDeputies(
+                deputies.filter(
+                    // TODO: Find a systematic way
                     (d) =>
-                        d.name.toLowerCase().includes(str.toLowerCase()) ||
-                        d.party.name
+                        d.deputy.name
                             .toLowerCase()
                             .includes(str.toLowerCase()) ||
-                        d.department.toLowerCase().includes(str.toLowerCase())
+                        d.deputy.party.name
+                            .toLowerCase()
+                            .includes(str.toLowerCase()) ||
+                        d.deputy.department
+                            .toLowerCase()
+                            .includes(str.toLowerCase())
                 )
             );
         },
-        [props.deputies, props.searchDeputies]
+        [deputies, searchDeputies]
     );
 
     return (
