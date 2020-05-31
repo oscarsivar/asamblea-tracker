@@ -11,5 +11,5 @@ services:
             - ${PORT}:${PORT}
         volumes:
             - /usr/src/app/node_modules
-            - ./../.next:/usr/src/app/.next
+            - /usr/src/app/.next
             - ./../:/usr/src/app

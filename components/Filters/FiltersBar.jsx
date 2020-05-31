@@ -36,15 +36,9 @@ export default function FiltersBar({
                 deputies.filter(
                     // TODO: Find a systematic way
                     (d) =>
-                        d.deputy.name
-                            .toLowerCase()
-                            .includes(str.toLowerCase()) ||
-                        d.deputy.party.name
-                            .toLowerCase()
-                            .includes(str.toLowerCase()) ||
-                        d.deputy.department
-                            .toLowerCase()
-                            .includes(str.toLowerCase())
+                        checkIsIncluded(d.deputy.name, str) ||
+                        checkIsIncluded(d.deputy.party.name, str) ||
+                        checkIsIncluded(d.deputy.department, str)
                 )
             );
         },
@@ -61,4 +55,25 @@ export default function FiltersBar({
             </div>
         </div>
     );
+}
+
+// TODO: Centralize it in a utils file
+function checkIsIncluded(
+    str1,
+    str2,
+    mapped = [
+        [`á`, `a`],
+        [`é`, `e`],
+        [`í`, `i`],
+        [`ó`, `o`],
+        [`ú`, `u`],
+        [`ü`, `u`],
+        [`ñ`, `n`],
+    ]
+) {
+    const reducer = (cleaned, chars) =>
+        cleaned.replace(new RegExp(`${chars[0]}`), chars[1]);
+    return mapped
+        .reduce(reducer, str1.toLowerCase())
+        .includes(mapped.reduce(reducer, str2.toLowerCase()));
 }
