@@ -1,5 +1,5 @@
 {
-    "name": "asamblea-viewer",
+    "name": "asamblea-tracker",
     "version": "1.0.0",
     "description": "¡Vamos a auditar el trabajo de nuestros representantes!",
     "main": "app.js",
