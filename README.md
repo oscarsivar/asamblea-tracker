@@ -1,6 +1,6 @@
 # Asamblea Tracker
 
-> Puedes acceder a la versión temprana de la plataforma haciendo click en este [enlace](http://35.185.253.48/).
+> Puedes acceder a la versión temprana de la plataforma haciendo click en este [enlace](http://asamblea-tracker.mariomenjr.com/).
 
 ## Pre-requisitos
 
@@ -43,13 +43,11 @@ Si lo tuyo es el `console.log` a diestra y siniestra, tranquil@, I won't judge y
 
 ## Contribuir
 
-Si eres desarrollador y quieres aportar al proyecto, antes que nada, muchas gracias, cualquier aporte es bienvenido.
-
-Lee [CONTRIBUTING.md](./.github/es/CONTRIBUTING.md)
+Si eres desarrollador y quieres aportar al proyecto, muchas gracias, cualquier aporte es bienvenido, por favor lee: [CONTRIBUTING.md](./.github/es/CONTRIBUTING.md).
 
 ## Enlaces
 
--   👀 [Platform Preview](http://35.185.253.48/)
+-   👀 [Platform Preview](http://asamblea-tracker.mariomenjr.com/)
 -   😊 [Tweet hi!](https://twitter.com/mariomenjr)
 -   🌎 [Asamblea Legislativa: Diputado/as](https://www.asamblea.gob.sv/diputados)
 
